@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../styles/todoapp.scss";
+import '../../styles/todoapp.scss';
 
 type Props = {
   activeCount: number;
@@ -7,7 +7,7 @@ type Props = {
   filterStatus: string;
   onFilterChange: (status: string) => void;
   //onClearCompleted: () => void;
-}
+};
 
 export const TodoFooter: React.FC<Props> = ({
   activeCount,
@@ -15,37 +15,36 @@ export const TodoFooter: React.FC<Props> = ({
   filterStatus,
   onFilterChange,
 }) => {
-      return (
-        <footer className="todoapp__footer" data-cy="Footer">
-          <span className="todo-count" data-cy="TodosCounter">
-            {activeCount} items left
-          </span>
+  return (
+    <footer className="todoapp__footer" data-cy="Footer">
+      <span className="todo-count" data-cy="TodosCounter">
+        {activeCount} items left
+      </span>
 
-          <nav className="filter" data-cy="Filter">
-            {['all', 'active', 'completed'].map((status) => (
-            <a
-              key={status}
-              href={`#/${status === 'all' ?'' : status}`}
-              className={`filter__link ${filterStatus=== status ? 'selected' : ''}`}
-              data-cy={`FilterLink${status.charAt(0).toUpperCase() + status.slice(1)}`}
-              onClick={() => {
-                onFilterChange(status)
-              }}
-            >
-              {status.charAt(0).toUpperCase() + status.slice(1)}
-            </a>
-
-            ))}
-          </nav>
-
-          <button
-            type="button"
-            className="todoapp__clear-completed"
-            data-cy="ClearCompletedButton"
-            disabled={!hasCompleted}
+      <nav className="filter" data-cy="Filter">
+        {['all', 'active', 'completed'].map(status => (
+          <a
+            key={status}
+            href={`#/${status === 'all' ? '' : status}`}
+            className={`filter__link ${filterStatus === status ? 'selected' : ''}`}
+            data-cy={`FilterLink${status.charAt(0).toUpperCase() + status.slice(1)}`}
+            onClick={() => {
+              onFilterChange(status);
+            }}
           >
-            Clear completed
-          </button>
-        </footer>
-);
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </a>
+        ))}
+      </nav>
+
+      <button
+        type="button"
+        className="todoapp__clear-completed"
+        data-cy="ClearCompletedButton"
+        disabled={!hasCompleted}
+      >
+        Clear completed
+      </button>
+    </footer>
+  );
 };

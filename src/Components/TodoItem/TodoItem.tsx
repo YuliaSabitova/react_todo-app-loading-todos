@@ -1,24 +1,23 @@
-import { Todo } from "../../types/Todo";
-import "../../styles/todo.scss";
-import { Loader } from "../Loader/Loader";
+import { Todo } from '../../types/Todo';
+import '../../styles/todo.scss';
+import { Loader } from '../Loader/Loader';
 
 type Props = {
   todo: Todo;
-}
+};
 
-export const TodoItem: React.FC<Props> = ({todo}) => {
+export const TodoItem: React.FC<Props> = ({ todo }) => {
   return (
-    <div
-      data-cy="Todo"
-      className={`todo ${todo.completed ? 'completed' : ''}`}
-    >
-      <label className="todo__status-label">
+    <div data-cy="Todo" className={`todo ${todo.completed ? 'completed' : ''}`}>
+      <label className="todo__status-label" htmlFor={`todo-status-${todo.id}`}>
         <input
+          id={`todo-status-${todo.id}`}
           data-cy="TodoStatus"
           type="checkbox"
           className="todo__status"
           checked={todo.completed}
           readOnly
+          aria-label={`Статус справи: ${todo.title}`}
         />
       </label>
 
@@ -31,8 +30,6 @@ export const TodoItem: React.FC<Props> = ({todo}) => {
       </button>
 
       <Loader />
-
     </div>
   );
 };
-

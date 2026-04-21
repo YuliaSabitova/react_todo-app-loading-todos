@@ -15,21 +15,22 @@ export const App: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [filterStatus, setFilterStatus] = useState('all');
 
-
   const visibleTodos = todos.filter(todo => {
     if (filterStatus === 'active') {
       return !todo.completed;
     }
-     if (filterStatus === 'completed') {
+
+    if (filterStatus === 'completed') {
       return todo.completed;
     }
+
     return true;
   });
 
-  const isAllCompleted = todos.length > 0 && todos.every(todo => todo.completed);
+  const isAllCompleted =
+    todos.length > 0 && todos.every(todo => todo.completed);
   const activeCount = todos.filter(todo => !todo.completed).length;
   const hasCompleted = todos.some(todo => todo.completed);
-
 
   function loadTodos() {
     setLoading(true);
@@ -39,7 +40,8 @@ export const App: React.FC = () => {
       .catch(() => setErrorMessage('Unable to load todos'))
       .finally(() => setLoading(false));
   }
-   useEffect(loadTodos, [USER_ID]);
+
+  useEffect(loadTodos, [USER_ID]);
 
   if (!USER_ID) {
     return <UserWarning />;
@@ -51,7 +53,7 @@ export const App: React.FC = () => {
 
       <div className="todoapp__content">
         <header className="todoapp__header">
-           <button
+          <button
             type="button"
             className={`todoapp__toggle-all ${isAllCompleted ? 'active' : ''}`}
             data-cy="ToggleAllButton"
@@ -66,17 +68,11 @@ export const App: React.FC = () => {
           </form>
         </header>
 
-        <section
-        className="todoapp__main"
-        data-cy="TodoList">
-        {visibleTodos.map(todo => (
-        <TodoItem
-        key={todo.id}
-        todo={todo}
-        />
-        ))}
-        {loading &&
-        <Loader isLoading={loading}/>}
+        <section className="todoapp__main" data-cy="TodoList">
+          {visibleTodos.map(todo => (
+            <TodoItem key={todo.id} todo={todo} />
+          ))}
+          {loading && <Loader isLoading={loading} />}
         </section>
 
         {todos.length > 0 && (
@@ -88,10 +84,10 @@ export const App: React.FC = () => {
           />
         )}
 
-      <ErrorNotification
-      message={errorMessage}
-      onClose={() => setErrorMessage('')}
-      />
+        <ErrorNotification
+          message={errorMessage}
+          onClose={() => setErrorMessage('')}
+        />
       </div>
     </div>
   );
