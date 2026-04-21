@@ -41,7 +41,7 @@ export const App: React.FC = () => {
       .finally(() => setLoading(false));
   }
 
-  useEffect(loadTodos, [USER_ID]);
+  useEffect(loadTodos, []);
 
   if (!USER_ID) {
     return <UserWarning />;
