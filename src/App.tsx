@@ -8,19 +8,20 @@ import { TodoFooter } from './Components/Footer/TodoFooter';
 import { TodoItem } from './Components/TodoItem/TodoItem';
 import { Loader } from './Components/Loader/Loader';
 import { ErrorNotification } from './Components/Error/ErrorNotification';
+import { FilterStatus } from './types/FilterStatus';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterStatus, setFilterStatus] = useState<FilterStatus>(FilterStatus.All);
 
   const visibleTodos = todos.filter(todo => {
-    if (filterStatus === 'active') {
+    if (filterStatus === FilterStatus.Active) {
       return !todo.completed;
     }
 
-    if (filterStatus === 'completed') {
+    if (filterStatus === FilterStatus.Completed) {
       return todo.completed;
     }
 

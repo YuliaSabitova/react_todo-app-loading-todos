@@ -1,13 +1,16 @@
 import React from 'react';
 import '../../styles/todoapp.scss';
+import { FilterStatus } from '../../types/FilterStatus';
 
 type Props = {
   activeCount: number;
   hasCompleted: boolean;
-  filterStatus: string;
-  onFilterChange: (status: string) => void;
+  filterStatus: FilterStatus;
+  onFilterChange: (status: FilterStatus) => void;
   //onClearCompleted: () => void;
 };
+
+
 
 export const TodoFooter: React.FC<Props> = ({
   activeCount,
@@ -22,7 +25,7 @@ export const TodoFooter: React.FC<Props> = ({
       </span>
 
       <nav className="filter" data-cy="Filter">
-        {['all', 'active', 'completed'].map(status => (
+        {Object.values(FilterStatus).map(status => (
           <a
             key={status}
             href={`#/${status === 'all' ? '' : status}`}
