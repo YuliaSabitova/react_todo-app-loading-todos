@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/todoapp.scss';
-import { FilterStatus } from '../../types/FilterStatus';
+import { FilterStatus } from '../../types/Types';
 
 type Props = {
   activeCount: number;
@@ -9,8 +9,6 @@ type Props = {
   onFilterChange: (status: FilterStatus) => void;
   //onClearCompleted: () => void;
 };
-
-
 
 export const TodoFooter: React.FC<Props> = ({
   activeCount,

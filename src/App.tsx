@@ -8,13 +8,15 @@ import { TodoFooter } from './Components/Footer/TodoFooter';
 import { TodoItem } from './Components/TodoItem/TodoItem';
 import { Loader } from './Components/Loader/Loader';
 import { ErrorNotification } from './Components/Error/ErrorNotification';
-import { FilterStatus } from './types/FilterStatus';
+import { ErrorType, FilterStatus } from './types/Types';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [filterStatus, setFilterStatus] = useState<FilterStatus>(FilterStatus.All);
+  const [errorMessage, setErrorMessage] = useState<ErrorType | ''>('');
+  const [filterStatus, setFilterStatus] = useState<FilterStatus>(
+    FilterStatus.All,
+  );
 
   const visibleTodos = todos.filter(todo => {
     if (filterStatus === FilterStatus.Active) {
@@ -38,7 +40,7 @@ export const App: React.FC = () => {
 
     getTodos()
       .then(setTodos)
-      .catch(() => setErrorMessage('Unable to load todos'))
+      .catch(() => setErrorMessage(ErrorType.Load))
       .finally(() => setLoading(false));
   }
 
@@ -85,10 +87,10 @@ export const App: React.FC = () => {
           />
         )}
 
-        <ErrorNotification
+         <ErrorNotification
           message={errorMessage}
           onClose={() => setErrorMessage('')}
-        />
+         />
       </div>
     </div>
   );
